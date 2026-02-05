@@ -1,0 +1,242 @@
+2026-02-05 21:38:59.137 INFO  [main] [] Starting ModbusSimulatorApplication using Java 21.0.10 with PID 531301 (/home/harrison/project/smartEMS/modbus-simulator/target/modbus-simulator-1.0.0.jar started by harrison in /home/harrison/project/smartEMS/modbus-simulator) com.sysbreak.simulator.ModbusSimulatorApplication [StartupInfoLogger.java:54]
+2026-02-05 21:38:59.141 INFO  [main] [] No active profile set, falling back to 1 default profile: "default" com.sysbreak.simulator.ModbusSimulatorApplication [SpringApplication.java:652]
+2026-02-05 21:38:59.676 INFO  [main] [] === Modbus电池模拟器启动中 === com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:42]
+2026-02-05 21:38:59.677 INFO  [main] [] MQTT Broker: tcp://mqtt:1883 com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:43]
+2026-02-05 21:38:59.678 INFO  [main] [] MQTT Topic: ems/bms/telemetry com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:44]
+2026-02-05 21:38:59.678 INFO  [main] [] Modbus端口: 1502 com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:45]
+2026-02-05 21:38:59.679 INFO  [main] [] 发布间隔: 5000 ms com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:46]
+2026-02-05 21:38:59.679 INFO  [main] [] 模拟间隔: 5000 ms com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:47]
+2026-02-05 21:38:59.679 INFO  [main] [] 电池模拟器已初始化 - SOC: 85.0, 电压: 52.5V, 电流: 15.0A, 温度: 25.0°C com.sysbreak.simulator.service.BatterySimulatorService [BatterySimulatorService.java:62]
+2026-02-05 21:38:59.680 INFO  [main] [] 模拟器启动成功 com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:49]
+2026-02-05 21:38:59.832 ERROR [main] [] 连接MQTT代理失败 com.sysbreak.simulator.service.MqttPublisherService [MqttPublisherService.java:60]
+org.eclipse.paho.client.mqttv3.MqttException: MqttException
+	at org.eclipse.paho.client.mqttv3.internal.ExceptionHelper.createMqttException(ExceptionHelper.java:38)
+	at org.eclipse.paho.client.mqttv3.internal.ClientComms$ConnectBG.run(ClientComms.java:738)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.UnknownHostException: mqtt
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:567)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at org.eclipse.paho.client.mqttv3.internal.TCPNetworkModule.start(TCPNetworkModule.java:74)
+	at org.eclipse.paho.client.mqttv3.internal.ClientComms$ConnectBG.run(ClientComms.java:724)
+	... 1 common frames omitted
+2026-02-05 21:38:59.838 WARN  [main] [] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'schedulerConfig' defined in URL [jar:nested:/home/harrison/project/smartEMS/modbus-simulator/target/modbus-simulator-1.0.0.jar/!BOOT-INF/classes/!/com/sysbreak/simulator/config/SchedulerConfig.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'mqttPublisherService': Invocation of init method failed org.springframework.context.annotation.AnnotationConfigApplicationContext [AbstractApplicationContext.java:628]
+2026-02-05 21:38:59.843 INFO  [main] [] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger [ConditionEvaluationReportLogger.java:82]
+2026-02-05 21:38:59.863 ERROR [main] [] Application run failed org.springframework.boot.SpringApplication [SpringApplication.java:863]
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'schedulerConfig' defined in URL [jar:nested:/home/harrison/project/smartEMS/modbus-simulator/target/modbus-simulator-1.0.0.jar/!BOOT-INF/classes/!/com/sysbreak/simulator/config/SchedulerConfig.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'mqttPublisherService': Invocation of init method failed
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1382)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1221)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1218)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1184)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1121)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:993)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:620)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.sysbreak.simulator.ModbusSimulatorApplication.main(ModbusSimulatorApplication.java:37)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:91)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:53)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:58)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mqttPublisherService': Invocation of init method failed
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:220)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:426)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1809)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 25 common frames omitted
+Caused by: java.lang.RuntimeException: MQTT代理连接失败
+	at com.sysbreak.simulator.service.MqttPublisherService.connect(MqttPublisherService.java:61)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMethod.invoke(InitDestroyAnnotationBeanPostProcessor.java:453)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeInitMethods(InitDestroyAnnotationBeanPostProcessor.java:397)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:217)
+	... 38 common frames omitted
+Caused by: org.eclipse.paho.client.mqttv3.MqttException: MqttException
+	at org.eclipse.paho.client.mqttv3.internal.ExceptionHelper.createMqttException(ExceptionHelper.java:38)
+	at org.eclipse.paho.client.mqttv3.internal.ClientComms$ConnectBG.run(ClientComms.java:738)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.UnknownHostException: mqtt
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:567)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at org.eclipse.paho.client.mqttv3.internal.TCPNetworkModule.start(TCPNetworkModule.java:74)
+	at org.eclipse.paho.client.mqttv3.internal.ClientComms$ConnectBG.run(ClientComms.java:724)
+	... 1 common frames omitted
+2026-02-05 21:43:52.594 INFO  [main] [] Starting ModbusSimulatorApplication using Java 21.0.10 with PID 534490 (/home/harrison/project/smartEMS/modbus-simulator/target/modbus-simulator-1.0.0.jar started by harrison in /home/harrison/project/smartEMS/modbus-simulator) com.sysbreak.simulator.ModbusSimulatorApplication [StartupInfoLogger.java:54]
+2026-02-05 21:43:52.598 INFO  [main] [] No active profile set, falling back to 1 default profile: "default" com.sysbreak.simulator.ModbusSimulatorApplication [SpringApplication.java:652]
+2026-02-05 21:43:53.189 INFO  [main] [] === Modbus电池模拟器启动中 === com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:42]
+2026-02-05 21:43:53.190 INFO  [main] [] MQTT Broker: tcp://mqtt:1883 com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:43]
+2026-02-05 21:43:53.190 INFO  [main] [] MQTT Topic: ems/bms/telemetry com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:44]
+2026-02-05 21:43:53.191 INFO  [main] [] Modbus端口: 1502 com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:45]
+2026-02-05 21:43:53.192 INFO  [main] [] 发布间隔: 5000 ms com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:46]
+2026-02-05 21:43:53.192 INFO  [main] [] 模拟间隔: 5000 ms com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:47]
+2026-02-05 21:43:53.192 INFO  [main] [] 电池模拟器已初始化 - SOC: 85.0, 电压: 52.5V, 电流: 15.0A, 温度: 25.0°C com.sysbreak.simulator.service.BatterySimulatorService [BatterySimulatorService.java:62]
+2026-02-05 21:43:53.193 INFO  [main] [] 模拟器启动成功 com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:49]
+2026-02-05 21:43:53.308 ERROR [main] [] 连接MQTT代理失败 com.sysbreak.simulator.service.MqttPublisherService [MqttPublisherService.java:60]
+org.eclipse.paho.client.mqttv3.MqttException: MqttException
+	at org.eclipse.paho.client.mqttv3.internal.ExceptionHelper.createMqttException(ExceptionHelper.java:38)
+	at org.eclipse.paho.client.mqttv3.internal.ClientComms$ConnectBG.run(ClientComms.java:738)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.UnknownHostException: mqtt
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:567)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at org.eclipse.paho.client.mqttv3.internal.TCPNetworkModule.start(TCPNetworkModule.java:74)
+	at org.eclipse.paho.client.mqttv3.internal.ClientComms$ConnectBG.run(ClientComms.java:724)
+	... 1 common frames omitted
+2026-02-05 21:43:53.314 WARN  [main] [] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'schedulerConfig' defined in URL [jar:nested:/home/harrison/project/smartEMS/modbus-simulator/target/modbus-simulator-1.0.0.jar/!BOOT-INF/classes/!/com/sysbreak/simulator/config/SchedulerConfig.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'mqttPublisherService': Invocation of init method failed org.springframework.context.annotation.AnnotationConfigApplicationContext [AbstractApplicationContext.java:628]
+2026-02-05 21:43:53.319 INFO  [main] [] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger [ConditionEvaluationReportLogger.java:82]
+2026-02-05 21:43:53.336 ERROR [main] [] Application run failed org.springframework.boot.SpringApplication [SpringApplication.java:863]
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'schedulerConfig' defined in URL [jar:nested:/home/harrison/project/smartEMS/modbus-simulator/target/modbus-simulator-1.0.0.jar/!BOOT-INF/classes/!/com/sysbreak/simulator/config/SchedulerConfig.class]: Unsatisfied dependency expressed through constructor parameter 2: Error creating bean with name 'mqttPublisherService': Invocation of init method failed
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1382)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1221)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1218)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1184)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1121)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:993)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:620)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.sysbreak.simulator.ModbusSimulatorApplication.main(ModbusSimulatorApplication.java:37)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:91)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:53)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:58)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mqttPublisherService': Invocation of init method failed
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:220)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:426)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1809)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 25 common frames omitted
+Caused by: java.lang.RuntimeException: MQTT代理连接失败
+	at com.sysbreak.simulator.service.MqttPublisherService.connect(MqttPublisherService.java:61)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMethod.invoke(InitDestroyAnnotationBeanPostProcessor.java:453)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeInitMethods(InitDestroyAnnotationBeanPostProcessor.java:397)
+	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:217)
+	... 38 common frames omitted
+Caused by: org.eclipse.paho.client.mqttv3.MqttException: MqttException
+	at org.eclipse.paho.client.mqttv3.internal.ExceptionHelper.createMqttException(ExceptionHelper.java:38)
+	at org.eclipse.paho.client.mqttv3.internal.ClientComms$ConnectBG.run(ClientComms.java:738)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.UnknownHostException: mqtt
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:567)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:751)
+	at org.eclipse.paho.client.mqttv3.internal.TCPNetworkModule.start(TCPNetworkModule.java:74)
+	at org.eclipse.paho.client.mqttv3.internal.ClientComms$ConnectBG.run(ClientComms.java:724)
+	... 1 common frames omitted
+2026-02-05 21:47:18.260 INFO  [main] [] Starting ModbusSimulatorApplication using Java 21.0.10 with PID 537224 (/home/harrison/project/smartEMS/modbus-simulator/target/modbus-simulator-1.0.0.jar started by harrison in /home/harrison/project/smartEMS/modbus-simulator) com.sysbreak.simulator.ModbusSimulatorApplication [StartupInfoLogger.java:54]
+2026-02-05 21:47:18.265 INFO  [main] [] No active profile set, falling back to 1 default profile: "default" com.sysbreak.simulator.ModbusSimulatorApplication [SpringApplication.java:652]
+2026-02-05 21:47:18.784 INFO  [main] [] === Modbus电池模拟器启动中 === com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:42]
+2026-02-05 21:47:18.784 INFO  [main] [] MQTT Broker: tcp://127.0.0.1:1883 com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:43]
+2026-02-05 21:47:18.785 INFO  [main] [] MQTT Topic: ems/bms/telemetry com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:44]
+2026-02-05 21:47:18.785 INFO  [main] [] Modbus端口: 1502 com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:45]
+2026-02-05 21:47:18.786 INFO  [main] [] 发布间隔: 5000 ms com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:46]
+2026-02-05 21:47:18.786 INFO  [main] [] 模拟间隔: 5000 ms com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:47]
+2026-02-05 21:47:18.786 INFO  [main] [] 电池模拟器已初始化 - SOC: 85.0, 电压: 52.5V, 电流: 15.0A, 温度: 25.0°C com.sysbreak.simulator.service.BatterySimulatorService [BatterySimulatorService.java:62]
+2026-02-05 21:47:18.787 INFO  [main] [] 模拟器启动成功 com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:49]
+2026-02-05 21:47:19.164 INFO  [main] [] 已连接到MQTT代理: tcp://127.0.0.1:1883 com.sysbreak.simulator.service.MqttPublisherService [MqttPublisherService.java:58]
+2026-02-05 21:47:19.226 INFO  [main] [] Modbus从站已启动，端口: 1502, 从站ID: 1 com.sysbreak.simulator.service.ModbusSlaveService [ModbusSlaveService.java:64]
+2026-02-05 21:47:19.235 INFO  [main] [] 启动定时任务调度器 com.sysbreak.simulator.config.SchedulerConfig [SchedulerConfig.java:81]
+2026-02-05 21:47:19.236 INFO  [main] [] 发布间隔: 5000 ms com.sysbreak.simulator.config.SchedulerConfig [SchedulerConfig.java:82]
+2026-02-05 21:47:19.236 INFO  [main] [] 模拟间隔: 5000 ms com.sysbreak.simulator.config.SchedulerConfig [SchedulerConfig.java:83]
+2026-02-05 21:47:19.239 WARN  [main] [] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'schedulerConfig': Invocation of init method failed org.springframework.context.annotation.AnnotationConfigApplicationContext [AbstractApplicationContext.java:628]
+2026-02-05 21:47:19.240 INFO  [main] [] Modbus从站已关闭 com.sysbreak.simulator.service.ModbusSlaveService [ModbusSlaveService.java:119]
+2026-02-05 21:47:19.245 INFO  [main] [] 已断开MQTT连接 com.sysbreak.simulator.service.MqttPublisherService [MqttPublisherService.java:141]
+2026-02-05 21:47:19.253 INFO  [main] [] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled. org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger [ConditionEvaluationReportLogger.java:82]
+2026-02-05 21:47:19.293 ERROR [main] [] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌──->──┐
+|  schedulerConfig
+└──<-──┘
+
+
+Action:
+
+Relying upon circular references is discouraged and they are prohibited by default. Update your application to remove the dependency cycle between beans. As a last resort, it may be possible to break the cycle automatically by setting spring.main.allow-circular-references to true.
+ org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter [LoggingFailureAnalysisReporter.java:40]
+2026-02-05 21:50:11.602 INFO  [main] [] Starting ModbusSimulatorApplication using Java 21.0.10 with PID 539346 (/home/harrison/project/smartEMS/modbus-simulator/target/modbus-simulator-1.0.0.jar started by harrison in /home/harrison/project/smartEMS/modbus-simulator) com.sysbreak.simulator.ModbusSimulatorApplication [StartupInfoLogger.java:54]
+2026-02-05 21:50:11.606 INFO  [main] [] No active profile set, falling back to 1 default profile: "default" com.sysbreak.simulator.ModbusSimulatorApplication [SpringApplication.java:652]
+2026-02-05 21:50:12.136 INFO  [main] [] === Modbus电池模拟器启动中 === com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:42]
+2026-02-05 21:50:12.137 INFO  [main] [] MQTT Broker: tcp://127.0.0.1:1883 com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:43]
+2026-02-05 21:50:12.137 INFO  [main] [] MQTT Topic: ems/bms/telemetry com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:44]
+2026-02-05 21:50:12.138 INFO  [main] [] Modbus端口: 1502 com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:45]
+2026-02-05 21:50:12.138 INFO  [main] [] 发布间隔: 5000 ms com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:46]
+2026-02-05 21:50:12.139 INFO  [main] [] 模拟间隔: 5000 ms com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:47]
+2026-02-05 21:50:12.139 INFO  [main] [] 电池模拟器已初始化 - SOC: 85.0, 电压: 52.5V, 电流: 15.0A, 温度: 25.0°C com.sysbreak.simulator.service.BatterySimulatorService [BatterySimulatorService.java:62]
+2026-02-05 21:50:12.140 INFO  [main] [] 模拟器启动成功 com.sysbreak.simulator.ModbusSimulatorApplication [ModbusSimulatorApplication.java:49]
+2026-02-05 21:50:12.203 INFO  [main] [] Modbus从站已启动，端口: 1502, 从站ID: 1 com.sysbreak.simulator.service.ModbusSlaveService [ModbusSlaveService.java:64]
+2026-02-05 21:50:12.581 INFO  [main] [] 已连接到MQTT代理: tcp://127.0.0.1:1883 com.sysbreak.simulator.service.MqttPublisherService [MqttPublisherService.java:58]
+2026-02-05 21:50:12.706 INFO  [main] [] Started ModbusSimulatorApplication in 1.723 seconds (process running for 2.269) com.sysbreak.simulator.ModbusSimulatorApplication [StartupInfoLogger.java:60]
+2026-02-05 21:50:12.712 INFO  [main] [] 启动定时任务调度器 com.sysbreak.simulator.config.SchedulerConfig [SchedulerConfig.java:44]
+2026-02-05 21:50:12.713 INFO  [main] [] 发布间隔: 5000 ms com.sysbreak.simulator.config.SchedulerConfig [SchedulerConfig.java:45]
+2026-02-05 21:50:12.713 INFO  [main] [] 模拟间隔: 5000 ms com.sysbreak.simulator.config.SchedulerConfig [SchedulerConfig.java:46]
+2026-02-05 21:50:12.715 INFO  [main] [] 定时任务调度器已启动 com.sysbreak.simulator.config.SchedulerConfig [SchedulerConfig.java:75]
+2026-02-05 21:50:12.872 INFO  [pool-1-thread-1] [] 发布电池数据 - SOC: 85.00%, 电压: 52.50V, 电流: 15.00A, 温度: 25.00°C com.sysbreak.simulator.service.MqttPublisherService [MqttPublisherService.java:86]
+2026-02-05 21:50:17.723 INFO  [pool-1-thread-1] [] 发布电池数据 - SOC: 84.90%, 电压: 56.96V, 电流: 4.84A, 温度: 34.51°C com.sysbreak.simulator.service.MqttPublisherService [MqttPublisherService.java:86]
+2026-02-05 21:50:22.732 INFO  [pool-1-thread-1] [] 发布电池数据 - SOC: 85.20%, 电压: 56.81V, 电流: 17.92A, 温度: 29.69°C com.sysbreak.simulator.service.MqttPublisherService [MqttPublisherService.java:86]
+2026-02-05 21:50:24.638 INFO  [SpringApplicationShutdownHook] [] 已断开MQTT连接 com.sysbreak.simulator.service.MqttPublisherService [MqttPublisherService.java:141]
+2026-02-05 21:50:24.639 INFO  [SpringApplicationShutdownHook] [] Modbus从站已关闭 com.sysbreak.simulator.service.ModbusSlaveService [ModbusSlaveService.java:119]
+2026-02-05 21:50:24.640 INFO  [SpringApplicationShutdownHook] [] 正在关闭调度器... com.sysbreak.simulator.config.SchedulerConfig [SchedulerConfig.java:82]
+2026-02-05 21:50:24.640 INFO  [SpringApplicationShutdownHook] [] 调度器已停止 com.sysbreak.simulator.config.SchedulerConfig [SchedulerConfig.java:92]

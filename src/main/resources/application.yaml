@@ -1,0 +1,24 @@
+spring:
+  main:
+    banner-mode: off
+
+server:
+  port: -1
+
+modbus:
+  port: 1502   # 解决Linux环境上，1024 以下端口需要 root 权限的问题
+  slave-id: 1
+
+mqtt:
+  broker: "tcp://mqtt:1883"  # 这里的 mqtt 是容器名，如果本地测试，需要改为 127.0.0.1 或者 localhost
+  topic: "ems/bms/telemetry"
+  client-id: "modbus-simulator"
+  qos: 1
+
+battery:
+  publish-interval: 5000
+  simulation-interval: 5000
+  initial-soc: 85.0
+  initial-voltage: 52.5
+  initial-current: 15.0
+  initial-temperature: 25.0

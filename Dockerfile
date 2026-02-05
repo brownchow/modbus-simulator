@@ -1,40 +1,39 @@
-# Multi-stage build for Modbus Simulator
-# Stage 1: Build stage
+# 多阶段构建的 Modbus 模拟器镜像
+# 阶段1：构建阶段，启用 BuildKit 缓存加速依赖下载
 FROM maven:3.9-eclipse-temurin-21 AS builder
 
 WORKDIR /app
 
-# Configure Maven mirror for China mainland
+# 配置 Maven 阿里云镜像（国内加速）
 COPY maven-settings.xml /root/.m2/settings.xml
 
-# Copy pom.xml and download dependencies
+# 复制项目源码并构建，依赖使用本地缓存
 COPY pom.xml .
-RUN mvn dependency:go-offline -B
-
-# Copy source code and build
 COPY src ./src
-RUN mvn clean package -DskipTests -B
 
-# Stage 2: Runtime stage
+RUN --mount=type=cache,target=/root/.m2/.repository \
+    mvn clean package -DskipTests -B
+
+# 阶段2：运行时阶段，使用轻量级 JRE 镜像
 FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
-# Create non-root user
+# 创建非 root 用户，提升安全性
 RUN addgroup -S simulator && adduser -S simulator -G simulator
 
-# Copy built JAR from builder stage
-COPY --from=builder /app/target/*jar-with-dependencies.jar simulator.jar
+# 从构建阶段复制打包好的 JAR 文件
+COPY --from=builder /app/target/modbus-simulator-1.0.0.jar app.jar
 
-# Change ownership
+# 修改文件所有者
 RUN chown -R simulator:simulator /app
 
-# Switch to non-root user
+# 切换到非 root 用户运行
 USER simulator:simulator
 
-# Health check
+# 健康检查：每 30 秒检查一次，超时 10 秒，失败重试 3 次
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
   CMD pgrep -f java || exit 1
 
-# Run the application
-ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-jar", "simulator.jar"]
+# 启动应用命令
+ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-jar", "app.jar"]
