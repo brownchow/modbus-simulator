@@ -10,7 +10,7 @@ modbus:
   slave-id: 1
 
 mqtt:
-  broker: "tcp://mqtt:1883"  # 这里的 mqtt 是容器名，如果本地测试，需要改为 127.0.0.1 或者 localhost
+  broker: "tcp://127.0.0.1:1883"  # 这里的 mqtt 是容器名，如果本地测试，需要改为 127.0.0.1 或者 localhost
   topic: "ems/bms/telemetry"
   client-id: "modbus-simulator"
   qos: 1
