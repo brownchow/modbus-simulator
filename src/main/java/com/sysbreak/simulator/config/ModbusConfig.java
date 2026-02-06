@@ -17,9 +17,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class ModbusConfig {
 
     /**
-     * Modbus TCP服务监听端口，默认为502
+     * Modbus TCP服务监听端口，默认为1502
      */
-    private int port = 502;
+    private int port = 1502;
 
     /**
      * Modbus从站ID
