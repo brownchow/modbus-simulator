@@ -13,6 +13,7 @@ mqtt:
   broker: "tcp://127.0.0.1:1883"  # 这里的 mqtt 是容器名，如果本地测试，需要改为 127.0.0.1 或者 localhost
   topic: "ems/bms/telemetry"
   client-id: "modbus-simulator"
+  device-id: "BMS-001"
   qos: 1
 
 battery:

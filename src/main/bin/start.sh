@@ -38,21 +38,34 @@ if [ ! -f "${CONFIG_OPTS}" ]; then
 fi
 
 echo "启动 Modbus Battery Simulator..."
-nohup java ${JAVA_OPTS} \
-    -Dlog.path="${LOG_DIR}" \
-    -Dspring.config.location="${CONFIG_OPTS}" \
-    -classpath "${CLASSPATH}" \
-    com.sysbreak.simulator.ModbusSimulatorApplication \
-    --logging.config="${LOG_OPTS}" \
-    > /dev/null 2>&1 &
 
-PID=$!
-echo "启动完成, PID: ${PID}"
-
-sleep 2
-if ps -p ${PID} > /dev/null 2>&1; then
-    echo "服务正在运行"
+# 检测是否在Docker环境中（通过环境变量判断）
+if [ -n "$MODBUS_PORT" ] || [ -n "$MQTT_BROKER" ]; then
+    echo "Docker环境，前台运行..."
+    exec java ${JAVA_OPTS} \
+        -Dlog.path="${LOG_DIR}" \
+        -Dspring.config.location="${CONFIG_OPTS}" \
+        -classpath "${CLASSPATH}" \
+        com.sysbreak.simulator.ModbusSimulatorApplication \
+        --logging.config="${LOG_OPTS}"
 else
-    echo "错误: 服务启动失败，请检查 logs 目录下的日志文件"
-    exit 1
+    echo "本地环境，后台运行..."
+    nohup java ${JAVA_OPTS} \
+        -Dlog.path="${LOG_DIR}" \
+        -Dspring.config.location="${CONFIG_OPTS}" \
+        -classpath "${CLASSPATH}" \
+        com.sysbreak.simulator.ModbusSimulatorApplication \
+        --logging.config="${LOG_OPTS}" \
+        > /dev/null 2>&1 &
+
+    PID=$!
+    echo "启动完成, PID: ${PID}"
+
+    sleep 2
+    if ps -p ${PID} > /dev/null 2>&1; then
+        echo "服务正在运行"
+    else
+        echo "错误: 服务启动失败，请检查 logs 目录下的日志文件"
+        exit 1
+    fi
 fi

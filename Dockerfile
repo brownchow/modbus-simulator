@@ -19,14 +19,19 @@ FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
+# Install bash for start script
+RUN apk add --no-cache bash
+
 # 创建非 root 用户，提升安全性
 RUN addgroup -S simulator && adduser -S simulator -G simulator
 
-# 从构建阶段复制打包好的 JAR 文件
-COPY --from=builder /app/target/modbus-simulator-1.0.0.jar app.jar
+# 从构建阶段复制打包好的目录结构
+COPY --from=builder /app/target/modbus-simulator-1.0.0-bin/. .
 
 # 修改文件所有者
-RUN chown -R simulator:simulator /app
+RUN chown -R simulator:simulator /app && \
+    mkdir -p /var/log/modbus-simulator && \
+    chown -R simulator:simulator /var/log/modbus-simulator
 
 # 切换到非 root 用户运行
 USER simulator:simulator
@@ -35,5 +40,5 @@ USER simulator:simulator
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
   CMD pgrep -f java || exit 1
 
-# 启动应用命令
-ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-jar", "app.jar"]
+# 使用启动脚本
+ENTRYPOINT ["/app/bin/start.sh"]

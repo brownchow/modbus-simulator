@@ -107,7 +107,7 @@ public class MqttPublisherService {
      */
     private Map<String, Object> createTelemetryData(double soc, double voltage, double current, double temperature) {
         Map<String, Object> data = new HashMap<>();
-        data.put("deviceId", "BMS-001");
+        data.put("deviceId", mqttConfig.getDeviceId());
         data.put("timestamp", System.currentTimeMillis());
         data.put("soc", Math.round(soc * 100.0) / 100.0);
         data.put("voltage", Math.round(voltage * 100.0) / 100.0);

@@ -32,6 +32,11 @@ public class MqttConfig {
     private String clientId = "modbus-simulator";
 
     /**
+     * 设备ID，用于遥测数据中的deviceId字段
+     */
+    private String deviceId = "BMS-001";
+
+    /**
      * MQTT消息服务质量等级（0: 最多一次, 1: 至少一次, 2: 恰好一次）
      */
     private int qos = 1;
